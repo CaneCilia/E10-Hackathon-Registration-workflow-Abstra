@@ -1,15 +1,178 @@
 {
   "components": [],
-  "forms": [],
+  "forms": [
+    {
+      "access_control": {
+        "is_public": false,
+        "required_roles": []
+      },
+      "auto_start": false,
+      "end_message": null,
+      "error_message": null,
+      "file": "hackathon_registration.py",
+      "id": "4e43b15e-cb18-425d-9350-9f69480c0c63",
+      "input": false,
+      "is_initial": true,
+      "notification_trigger": {
+        "enabled": false,
+        "variable_name": "assignee_emails"
+      },
+      "output": false,
+      "path": "hackathon-registration",
+      "start_button_text": null,
+      "start_message": null,
+      "timeout_message": null,
+      "title": "Hackathon Registration",
+      "transitions": [
+        {
+          "id": "f247efef-9441-4e08-a775-b1eb36ca13fa",
+          "target_id": "ebd9d1aa-a8bb-4ae1-8bb9-3cc63038a328",
+          "target_type": "scripts",
+          "task_type": "new_registration",
+          "type": "task"
+        }
+      ],
+      "workflow_position": [
+        0,
+        0
+      ]
+    },
+    {
+      "access_control": {
+        "is_public": false,
+        "required_roles": []
+      },
+      "auto_start": false,
+      "end_message": null,
+      "error_message": null,
+      "file": "payment_verification.py",
+      "id": "585179c8-948b-4935-9e03-a8a5d93bda92",
+      "input": false,
+      "is_initial": false,
+      "notification_trigger": {
+        "enabled": false,
+        "variable_name": "assignee_emails"
+      },
+      "output": false,
+      "path": "payment-verification",
+      "start_button_text": null,
+      "start_message": null,
+      "timeout_message": null,
+      "title": "Payment Verification",
+      "transitions": [
+        {
+          "id": "c7f6a1b2-9cf8-42c4-b64e-15e1981db4e3",
+          "target_id": "abb31681-772b-4b98-bc4e-47ee8ff8fa61",
+          "target_type": "scripts",
+          "task_type": "payment_confirmed",
+          "type": "task"
+        },
+        {
+          "id": "hccfux7",
+          "target_id": "69237ab4-90c3-4fb2-b1d2-9fe5cb189b43",
+          "target_type": "hooks",
+          "type": "task"
+        }
+      ],
+      "workflow_position": [
+        0,
+        300
+      ]
+    }
+  ],
   "home": {
     "access_control": {
       "is_public": false,
       "required_roles": []
     }
   },
-  "hooks": [],
-  "jobs": [],
-  "scripts": [],
+  "hooks": [
+    {
+      "enabled": false,
+      "file": "payment_webhook.py",
+      "id": "69237ab4-90c3-4fb2-b1d2-9fe5cb189b43",
+      "input": false,
+      "is_initial": true,
+      "output": false,
+      "path": "payment-webhook",
+      "title": "Payment Webhook",
+      "transitions": [],
+      "workflow_position": [
+        200,
+        300
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "file": "payment_reminder_job.py",
+      "id": "68c98af1-f521-4ef6-ba8e-abd845d827f3",
+      "input": false,
+      "output": false,
+      "schedule": "0 0 * * *",
+      "title": "Payment Reminder Job",
+      "transitions": [],
+      "workflow_position": [
+        630,
+        0
+      ]
+    }
+  ],
+  "scripts": [
+    {
+      "file": "process_registration.py",
+      "id": "ebd9d1aa-a8bb-4ae1-8bb9-3cc63038a328",
+      "input": false,
+      "is_initial": false,
+      "output": false,
+      "title": "Process Registration",
+      "transitions": [
+        {
+          "id": "89716391-a71a-4065-9fb7-6b16f22dc577",
+          "target_id": "585179c8-948b-4935-9e03-a8a5d93bda92",
+          "target_type": "forms",
+          "task_type": "payment_pending",
+          "type": "task"
+        },
+        {
+          "id": "yb0vfk1",
+          "target_id": "68c98af1-f521-4ef6-ba8e-abd845d827f3",
+          "target_type": "jobs",
+          "type": "task"
+        }
+      ],
+      "workflow_position": [
+        405,
+        0
+      ]
+    },
+    {
+      "file": "send_confirmation.py",
+      "id": "abb31681-772b-4b98-bc4e-47ee8ff8fa61",
+      "input": false,
+      "is_initial": false,
+      "output": false,
+      "title": "Send Confirmation",
+      "transitions": [],
+      "workflow_position": [
+        400,
+        300
+      ]
+    },
+    {
+      "file": "process_payment.py",
+      "id": "d854fb0d-9bd7-4758-80b6-6999a52768bf",
+      "input": false,
+      "is_initial": true,
+      "output": false,
+      "title": "Process Payment",
+      "transitions": [],
+      "workflow_position": [
+        200,
+        150
+      ]
+    }
+  ],
   "version": "17.0",
   "workspace": {
     "brand_name": "Abstra Project",
