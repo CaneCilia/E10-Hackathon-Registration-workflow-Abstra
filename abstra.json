@@ -30,10 +30,17 @@
           "target_type": "scripts",
           "task_type": "new_registration",
           "type": "task"
+        },
+        {
+          "id": "2b54788c-721c-4487-8fd5-e32f4f5bceee",
+          "target_id": "18c33245-09a9-4bc0-9858-e86af9c3f4e5",
+          "target_type": "forms",
+          "task_type": "add_payment",
+          "type": "task"
         }
       ],
       "workflow_position": [
-        0,
+        -90,
         0
       ]
     },
@@ -78,6 +85,42 @@
         0,
         300
       ]
+    },
+    {
+      "access_control": {
+        "is_public": false,
+        "required_roles": []
+      },
+      "auto_start": false,
+      "end_message": null,
+      "error_message": null,
+      "file": "add_payment.py",
+      "id": "18c33245-09a9-4bc0-9858-e86af9c3f4e5",
+      "input": false,
+      "is_initial": false,
+      "notification_trigger": {
+        "enabled": false,
+        "variable_name": "assignee_emails"
+      },
+      "output": false,
+      "path": "add-payment",
+      "start_button_text": null,
+      "start_message": null,
+      "timeout_message": null,
+      "title": "Add Payment",
+      "transitions": [
+        {
+          "id": "edbba558-5b4c-4e04-b347-bece8eca5c9b",
+          "target_id": "d854fb0d-9bd7-4758-80b6-6999a52768bf",
+          "target_type": "scripts",
+          "task_type": "process_payment",
+          "type": "task"
+        }
+      ],
+      "workflow_position": [
+        200,
+        0
+      ]
     }
   ],
   "home": {
@@ -92,11 +135,19 @@
       "file": "payment_webhook.py",
       "id": "69237ab4-90c3-4fb2-b1d2-9fe5cb189b43",
       "input": false,
-      "is_initial": true,
+      "is_initial": false,
       "output": false,
       "path": "payment-webhook",
       "title": "Payment Webhook",
-      "transitions": [],
+      "transitions": [
+        {
+          "id": "3ccdaee1-7ca0-4fcb-a3ee-3fe51092491b",
+          "target_id": "d854fb0d-9bd7-4758-80b6-6999a52768bf",
+          "target_type": "scripts",
+          "task_type": "webhook_payment",
+          "type": "task"
+        }
+      ],
       "workflow_position": [
         200,
         300
@@ -163,10 +214,18 @@
       "file": "process_payment.py",
       "id": "d854fb0d-9bd7-4758-80b6-6999a52768bf",
       "input": false,
-      "is_initial": true,
+      "is_initial": false,
       "output": false,
       "title": "Process Payment",
-      "transitions": [],
+      "transitions": [
+        {
+          "id": "1f377e02-a0d1-4158-8297-9db7b15cf7e6",
+          "target_id": "abb31681-772b-4b98-bc4e-47ee8ff8fa61",
+          "target_type": "scripts",
+          "task_type": "send_confirmation",
+          "type": "task"
+        }
+      ],
       "workflow_position": [
         200,
         150
